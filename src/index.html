@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriJeevan - Smart Farming</title>
+    <style>
+        /* Reset + Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #e8f5e9, #ffffff);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        header img {
+            width: 80px;
+            height: 80px;
+        }
+
+        header h1 {
+            font-size: 1.6rem;
+            margin-top: 10px;
+            color: #2e7d32;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Language Selector */
+        .language-select {
+            margin: 15px 0;
+        }
+
+        select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        /* Carousel */
+        .carousel {
+            width: 90%;
+            max-width: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .slide img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+
+        .slide h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #388e3c;
+        }
+
+        .slide p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* Carousel navigation dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .dot {
+            height: 10px;
+            width: 10px;
+            margin: 0 4px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: #2e7d32;
+        }
+
+        /* Get Started Button */
+        .btn {
+            margin: 20px;
+            padding: 12px 24px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1b5e20;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <img src="https://img.icons8.com/ios-filled/100/2e7d32/plant-under-sun.png" alt="Logo">
+        <h1>AgriJeevan</h1>
+        <p>Smart Farming, Sustainable Future</p>
+    </header>
+
+    <!-- Language Selector -->
+    <div class="language-select">
+        <label for="language">🌐 Choose Language:</label>
+        <select id="language">
+            <option>English</option>
+            <option>हिंदी (Hindi)</option>
+            <option>मराठी (Marathi)</option>
+            <option>ਪੰਜਾਬੀ (Punjabi)</option>
+        </select>
+    </div>
+
+    <!-- Carousel -->
+    <div class="carousel">
+        <div class="carousel-track">
+            <div class="slide">
+                <img src="https://img.icons8.com/color/96/wheat.png" alt="Crop">
+                <h3>Personalized Crop Recommendations</h3>
+                <p>Get the right crop suggestions based on soil and weather.</p>
+            </div>
+            <div class="slide">
+                <img src="https://img.icons8.com/color/96/bug.png" alt="Pest">
+                <h3>Detect Pests Early</h3>
+                <p>AI-powered image detection for pests and diseases.</p>
+            </div>
+            <div class="slide">
+                <img src="https://img.icons8.com/color/96/storm.png" alt="Weather">
+                <h3>Weather Alerts</h3>
+                <p>Stay updated with real-time weather warnings.</p>
+            </div>
+            <div class="slide">
+                <img src="https://img.icons8.com/color/96/community-grants.png" alt="Community">
+                <h3>Farmer Community</h3>
+                <p>Connect and share knowledge with local farmers.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carousel Dots -->
+    <div class="carousel-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+
+    <!-- Get Started Button -->
+    <button class="btn" onclick="goToRegister()">Get Started</button>
+
+    <script>
+        // Carousel Logic
+        const track = document.querySelector('.carousel-track');
+        const dots = document.querySelectorAll('.dot');
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            currentIndex = index;
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => showSlide(index));
+        });
+
+        // Auto-slide every 4 seconds
+        setInterval(() => {
+            let nextIndex = (currentIndex + 1) % dots.length;
+            showSlide(nextIndex);
+        }, 4000);
+
+        // Button navigation
+        function goToRegister() {
+            //   alert("👉 Redirect to Registration Page (to be built next).");
+            window.location.href = "RegistrationPage.html";
+        }
+    </script>
+
+</body>
+
+</html>

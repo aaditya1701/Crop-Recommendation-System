@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriJeevan - Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9fbe7;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Top Bar */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #2e7d32;
+      color: white;
+      padding: 12px 20px;
+    }
+    .topbar h2 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    .icons {
+      display: flex;
+      gap: 15px;
+    }
+    .icons img {
+      width: 26px;
+      height: 26px;
+      cursor: pointer;
+    }
+
+    /* Weather Widget */
+    .weather-box {
+      margin: 15px auto;
+      padding: 15px;
+      width: 90%;
+      max-width: 400px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .weather-box img {
+      width: 40px;
+      height: 40px;
+    }
+    .weather-info {
+      flex: 1;
+      margin-left: 15px;
+    }
+    .weather-info h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #2e7d32;
+    }
+    .weather-info p {
+      margin: 3px 0;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* Main Tiles */
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      padding: 20px;
+      flex: 1;
+    }
+    .tile {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .tile:hover {
+      transform: scale(1.05);
+      background: #f1f8e9;
+    }
+    .tile img {
+      width: 50px;
+      height: 50px;
+    }
+    .tile p {
+      margin-top: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #2e7d32;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      display: flex;
+      justify-content: space-around;
+      background: #2e7d32;
+      padding: 10px 0;
+      position: sticky;
+      bottom: 0;
+    }
+    .bottom-nav img {
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      filter: brightness(0) invert(1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <h2>AgriJeevan</h2>
+    <div class="icons">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/appointment-reminders.png" alt="Notifications">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/user-male-circle.png" alt="Profile">
+    </div>
+  </div>
+
+  <!-- Weather Widget -->
+  <div class="weather-box">
+    <img src="https://img.icons8.com/color/96/partly-cloudy-day.png" alt="Weather">
+    <div class="weather-info">
+      <h3>28°C, Sunny</h3>
+      <p>Rainfall: 5mm expected</p>
+      <p>Forecast: Clear skies</p>
+    </div>
+  </div>
+
+  <!-- Main Tiles -->
+  <div class="tiles">
+    <div class="tile" onclick="openFeature('Crop Recommendation')">
+      <img src="https://img.icons8.com/color/96/wheat.png" alt="Crop">
+      <p>Crop Recommendation</p>
+    </div>
+    <div class="tile" onclick="openFeature('Pest Detection')">
+      <img src="https://img.icons8.com/color/96/bug.png" alt="Pest">
+      <p>Pest & Disease Detection</p>
+    </div>
+    <div class="tile" onclick="openFeature('Crop Rotation')">
+      <img src="https://img.icons8.com/color/96/repeat.png" alt="Rotation">
+      <p>Crop Rotation</p>
+    </div>
+    <div class="tile" onclick="openFeature('Weather Alerts')">
+      <img src="https://img.icons8.com/color/96/storm.png" alt="Weather">
+      <p>Weather & Alerts</p>
+    </div>
+    <div class="tile" onclick="openFeature('Chatbot')">
+      <img src="https://img.icons8.com/color/96/chatbot.png" alt="Chatbot">
+      <p>AI Chatbot</p>
+    </div>
+    <div class="tile" onclick="openFeature('Community')">
+      <img src="https://img.icons8.com/color/96/conference.png" alt="Community">
+      <p>Community Reports</p>
+    </div>
+    <div class="tile" onclick="openFeature('Feedback')">
+      <img src="https://img.icons8.com/color/96/feedback.png" alt="Feedback">
+      <p>Feedback</p>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Home" onclick="openFeature('Home')">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/chat.png" alt="Chatbot" onclick="openFeature('Chatbot')">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/groups.png" alt="Community" onclick="openFeature('Community')">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="Profile" onclick="openFeature('Profile')">
+  </div>
+
+  <script>
+    function openFeature(name) {
+     if(name==="Crop Recommendation"){
+        window.location.href="CropRecommendationPage.html";
+     }else if(name==="Pest Detection"){
+        window.location.href="PestAndDiseaseDetectionPage.html";
+     }else{
+         alert("👉 Opening " + name + " (feature coming soon).");
+     }
+    }
+  </script>
+</body>
+</html>

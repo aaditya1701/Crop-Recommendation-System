@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriJeevan - Pest & Disease Detection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f8e9;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    .header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .container {
+      margin: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .upload-box {
+      border: 2px dashed #aaa;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 15px 0;
+      cursor: pointer;
+    }
+    .upload-box:hover {
+      border-color: #2e7d32;
+      background: #f9fbe7;
+    }
+    input[type="file"] {
+      display: none;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      display: none;
+      text-align: left;
+    }
+    .healthy {
+      background: #e8f5e9;
+      color: #2e7d32;
+      text-align: center;
+      font-weight: bold;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .disease {
+      background: #fff3e0;
+      color: #d84315;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #1b5e20;
+    }
+
+    /* Feedback */
+    .feedback {
+      margin-top: 20px;
+      display: none;
+      text-align: center;
+    }
+    .stars span {
+      font-size: 2rem;
+      cursor: pointer;
+      color: #ccc;
+    }
+    .stars span.active {
+      color: gold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">🐛 Pest & Disease Detection</div>
+
+  <div class="container">
+    <!-- Upload Section -->
+    <label class="upload-box" for="imageInput">
+      📷 Click to Upload or Take Photo
+    </label>
+    <input type="file" id="imageInput" accept="image/*" capture="camera">
+
+    <!-- Result Section -->
+    <div id="result" class="result"></div>
+
+    <!-- Feedback Section -->
+    <div id="feedback" class="feedback">
+      <h3>⭐ Was this advice useful?</h3>
+      <div class="stars">
+        <span onclick="rate(1)">★</span>
+        <span onclick="rate(2)">★</span>
+        <span onclick="rate(3)">★</span>
+        <span onclick="rate(4)">★</span>
+        <span onclick="rate(5)">★</span>
+      </div>
+      <p id="feedbackText"></p>
+    </div>
+  </div>
+
+  <script>
+    const resultBox = document.getElementById("result");
+    const feedbackBox = document.getElementById("feedback");
+
+    document.getElementById("imageInput").addEventListener("change", () => {
+      // Simulating AI disease detection
+      const diseases = [
+        {
+          name: "Leaf Blight",
+          severity: "Severe",
+          solution: "Use Neem Oil Spray or Mancozeb",
+          loss: "30% yield loss if untreated"
+        },
+        {
+          name: "Aphid Infestation",
+          severity: "Mild",
+          solution: "Introduce ladybugs or use mild pesticide",
+          loss: "10% yield loss if untreated"
+        }
+      ];
+
+      // Random result simulation
+      const rand = Math.random();
+      resultBox.style.display = "block";
+      resultBox.innerHTML = "";
+
+      if (rand > 0.5) {
+        const d = diseases[Math.floor(Math.random() * diseases.length)];
+        resultBox.className = "result disease";
+        resultBox.innerHTML = `
+          <h3>🚨 Disease Detected: ${d.name}</h3>
+          <p><b>Severity:</b> ${d.severity}</p>
+          <p><b>Solution:</b> ${d.solution}</p>
+          <p><b>Estimated Loss:</b> ${d.loss}</p>
+          <button class="btn" onclick="sendAlert('${d.name}')">⚠️ Send Alert to Neighbors</button>
+          <button class="btn" onclick="showFeedback()">Give Feedback</button>
+        `;
+      } else {
+        resultBox.className = "result healthy";
+        resultBox.innerHTML = "✅ Crop looks healthy!";
+        showFeedback();
+      }
+    });
+
+    function sendAlert(diseaseName) {
+      alert(`📢 Alert sent to neighboring farmers about ${diseaseName}!`);
+    }
+
+    function showFeedback() {
+      feedbackBox.style.display = "block";
+    }
+
+    function rate(stars) {
+      const starElems = document.querySelectorAll(".stars span");
+      starElems.forEach((s, i) => {
+        s.classList.toggle("active", i < stars);
+      });
+      document.getElementById("feedbackText").innerText = `Thanks! You rated this ${stars} stars.`;
+    }
+  </script>
+</body>
+</html>

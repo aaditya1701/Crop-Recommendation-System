@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriJeevan - Crop Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9fbe7;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        .header {
+            background: #2e7d32;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .container {
+            margin: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .crop-header {
+            text-align: center;
+        }
+
+        .crop-header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .crop-header h2 {
+            margin: 0;
+            color: #2e7d32;
+        }
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .section h3 {
+            color: #2e7d32;
+            margin-bottom: 8px;
+        }
+
+        .section p {
+            font-size: 0.95rem;
+            margin: 5px 0;
+            color: #444;
+        }
+
+        /* Chart */
+        #priceChart {
+            width: 100%;
+            max-width: 400px;
+            height: 200px;
+            margin: auto;
+        }
+
+        /* Button */
+        .btn {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #1b5e20;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="header">🌾 Crop Details</div>
+
+    <div class="container">
+        <!-- Crop Info -->
+        <div class="crop-header">
+            <img id="cropImage" src="https://img.icons8.com/color/96/rice-bowl.png" alt="Crop">
+            <h2 id="cropName">Rice</h2>
+        </div>
+
+        <!-- Description -->
+        <div class="section">
+            <h3>📋 Description</h3>
+            <p id="cropDesc">Rice grows well in loamy soil with good water retention and requires warm, humid climate.
+            </p>
+        </div>
+
+        <!-- Farming Practices -->
+        <div class="section">
+            <h3>🌱 Farming Practices</h3>
+            <p><b>Sowing Season:</b> June - July</p>
+            <p><b>Harvest Period:</b> October - November</p>
+            <p><b>Fertilizer Plan:</b> Urea + DAP + Organic Compost</p>
+            <p><b>Pesticide Plan:</b> Use Neem oil, Carbofuran if required</p>
+        </div>
+
+        <!-- Market Price -->
+        <div class="section">
+            <h3>💰 Market Price & Trend</h3>
+            <canvas id="priceChart"></canvas>
+            <p><b>Current Price:</b> ₹20/kg</p>
+        </div>
+
+        <!-- Save Button -->
+        <button class="btn" onclick="saveCrop()">✅ Save for this Season</button>
+    </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Demo crop data (could come from backend / query string)
+        const cropData = {
+            Rice: {
+                img: "https://img.icons8.com/color/96/rice-bowl.png",
+                desc: "Rice grows well in loamy soil with good water retention and requires warm, humid climate.",
+                sow: "June - July",
+                harvest: "October - November",
+                fertilizer: "Urea + DAP + Organic Compost",
+                pesticide: "Neem oil, Carbofuran if required",
+                price: [18, 20, 19, 21, 22]
+            },
+            Tomato: {
+                img: "https://img.icons8.com/color/96/tomato.png",
+                desc: "Tomatoes prefer sandy loam soil with good drainage and moderate sunlight.",
+                sow: "January - February",
+                harvest: "April - May",
+                fertilizer: "Organic Manure + NPK",
+                pesticide: "Mancozeb, Neem extract",
+                price: [25, 27, 26, 28, 30]
+            }
+        };
+
+        // Load crop from query string
+        const params = new URLSearchParams(window.location.search);
+        const cropName = params.get("crop") || "Rice";
+        const crop = cropData[cropName] || cropData["Rice"];
+
+        document.getElementById("cropName").innerText = cropName;
+        document.getElementById("cropImage").src = crop.img;
+        document.getElementById("cropDesc").innerText = crop.desc;
+
+        // Chart for market price trend
+        const ctx = document.getElementById("priceChart").getContext("2d");
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"],
+                datasets: [{
+                    label: "Market Price (₹/kg)",
+                    data: crop.price,
+                    borderColor: "#2e7d32",
+                    backgroundColor: "rgba(46, 125, 50, 0.2)",
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: false }
+                }
+            }
+        });
+
+        // Save Crop
+        function saveCrop() {
+            alert(`✅ ${cropName} saved for this season!\nRedirecting to Current Crop Page...`);
+            window.location.href = "CurrentCrop.html?crop=" + cropName;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriJeevan - Crop Recommendations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f8e9;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    .header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    /* Input Section */
+    .inputs {
+      background: white;
+      margin: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    .inputs h3 {
+      margin: 0 0 10px;
+      color: #2e7d32;
+    }
+    .inputs p {
+      margin: 5px 0;
+      font-size: 0.9rem;
+      color: #444;
+    }
+
+    /* Filters */
+    .filters {
+      margin: 15px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .filters select {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    /* Crop Cards */
+    .crop-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      padding: 15px;
+    }
+    @media(min-width: 600px) {
+      .crop-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .crop-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+    }
+    .crop-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+    .crop-card h3 {
+      margin: 5px 0;
+      color: #2e7d32;
+    }
+    .crop-card p {
+      font-size: 0.9rem;
+      margin: 3px 0;
+      color: #555;
+    }
+    .crop-card button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .crop-card button:hover {
+      background: #1b5e20;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">🌾 Crop Recommendations</div>
+
+  <!-- Inputs Auto-Filled -->
+  <div class="inputs">
+    <h3>📋 Farm & Soil Info</h3>
+    <p><b>Soil Type:</b> Loamy</p>
+    <p><b>Soil pH:</b> 6.5</p>
+    <p><b>Moisture:</b> 20%</p>
+    <p><b>Farm Size:</b> 2 Acres</p>
+    <p><b>Last Crop:</b> Wheat</p>
+    <p><b>Weather:</b> 28°C, Light Rain</p>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <label for="cropType">Filter by Crop Type:</label>
+    <select id="cropType" onchange="filterCrops()">
+      <option value="all">All</option>
+      <option value="Vegetables">Vegetables</option>
+      <option value="Fruits">Fruits</option>
+      <option value="Cereals">Cereals</option>
+      <option value="Wood">Wood</option>
+    </select>
+  </div>
+
+  <!-- Crop Recommendation Cards -->
+  <div class="crop-list" id="cropList">
+    <!-- Example Crop Card -->
+    <div class="crop-card" data-type="Cereals">
+      <img src="https://img.icons8.com/color/96/rice-bowl.png" alt="Rice">
+      <h3>Rice</h3>
+      <p>Suitability: 90%</p>
+      <p>Expected Yield: 2500 kg/ha</p>
+      <p>Fertilizer: Urea + Compost</p>
+      <p>Pesticides: Minimal</p>
+      <p>Water: High</p>
+      <p>Market Price: ₹20/kg</p>
+      <p><b>Profitability: High</b></p>
+      <button onclick="selectCrop('Rice')">Select Crop</button>
+    </div>
+
+    <div class="crop-card" data-type="Vegetables">
+      <img src="https://img.icons8.com/color/96/tomato.png" alt="Tomato">
+      <h3>Tomato</h3>
+      <p>Suitability: 85%</p>
+      <p>Expected Yield: 1800 kg/ha</p>
+      <p>Fertilizer: Organic Manure</p>
+      <p>Pesticides: Medium</p>
+      <p>Water: Medium</p>
+      <p>Market Price: ₹25/kg</p>
+      <p><b>Profitability: Medium</b></p>
+      <button onclick="selectCrop('Tomato')">Select Crop</button>
+    </div>
+
+    <div class="crop-card" data-type="Fruits">
+      <img src="https://img.icons8.com/color/96/mango.png" alt="Mango">
+      <h3>Mango</h3>
+      <p>Suitability: 80%</p>
+      <p>Expected Yield: 1200 kg/ha</p>
+      <p>Fertilizer: Organic Compost</p>
+      <p>Pesticides: Medium</p>
+      <p>Water: Low</p>
+      <p>Market Price: ₹50/kg</p>
+      <p><b>Profitability: High</b></p>
+      <button onclick="selectCrop('Mango')">Select Crop</button>
+    </div>
+  </div>
+
+  <script>
+    function filterCrops() {
+      const filter = document.getElementById("cropType").value;
+      const crops = document.querySelectorAll(".crop-card");
+
+      crops.forEach(crop => {
+        if (filter === "all" || crop.dataset.type === filter) {
+          crop.style.display = "block";
+        } else {
+          crop.style.display = "none";
+        }
+      });
+    }
+
+    function selectCrop(cropName) {
+      alert("✅ You selected " + cropName + "!\nRedirecting to Crop Details Page...");
+      // Redirect to details page
+      window.location.href = "CropDetails.html?crop=" + cropName;
+    }
+  </script>
+</body>
+</html>
