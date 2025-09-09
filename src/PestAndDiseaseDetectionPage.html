@@ -1,190 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgriJeevan - Pest & Disease Detection</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f1f8e9;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriJeevan - Pest & Disease Detection</title>
+<style>
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f1f8e9;
+  margin: 0;
+  padding: 0;
+}
 
-    /* Header */
-    .header {
-      background: #2e7d32;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      font-size: 1.3rem;
-      font-weight: bold;
-    }
+.header {
+  background: #2e7d32;
+  color: white;
+  padding: 20px 15px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
+}
 
-    .container {
-      margin: 20px;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-      text-align: center;
-    }
+.container {
+  max-width: 600px;
+  margin: 30px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0px 6px 18px rgba(0,0,0,0.1);
+  text-align: center;
+}
 
-    .upload-box {
-      border: 2px dashed #aaa;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 15px 0;
-      cursor: pointer;
-    }
-    .upload-box:hover {
-      border-color: #2e7d32;
-      background: #f9fbe7;
-    }
-    input[type="file"] {
-      display: none;
-    }
+.upload-box {
+  border: 2px dashed #2e7d32;
+  border-radius: 12px;
+  padding: 25px;
+  margin: 20px 0;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #2e7d32;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.upload-box:hover {
+  background: #e8f5e9;
+  border-color: #1b5e20;
+}
+input[type="file"] {
+  display: none;
+}
 
-    .result {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 10px;
-      display: none;
-      text-align: left;
-    }
-    .healthy {
-      background: #e8f5e9;
-      color: #2e7d32;
-      text-align: center;
-      font-weight: bold;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    .disease {
-      background: #fff3e0;
-      color: #d84315;
-    }
+.description-input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 90%;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
 
-    .btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 10px 20px;
-      background: #2e7d32;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .btn:hover {
-      background: #1b5e20;
-    }
+.result {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  display: none;
+  text-align: left;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
 
-    /* Feedback */
-    .feedback {
-      margin-top: 20px;
-      display: none;
-      text-align: center;
-    }
-    .stars span {
-      font-size: 2rem;
-      cursor: pointer;
-      color: #ccc;
-    }
-    .stars span.active {
-      color: gold;
-    }
-  </style>
+.healthy {
+  background: #e8f5e9;
+  color: #2e7d32;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.disease {
+  background: #fff3e0;
+  color: #d84315;
+  box-shadow: 0px 4px 10px rgba(216, 67, 21, 0.2);
+}
+
+.disease h3 {
+  margin-top: 0;
+}
+
+.btn {
+  display: inline-block;
+  margin: 10px 5px 0 0;
+  padding: 10px 18px;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.btn:hover {
+  background: #1b5e20;
+}
+
+.feedback {
+  margin-top: 25px;
+  display: none;
+  text-align: center;
+}
+
+.stars span {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.3s;
+}
+
+.stars span.active {
+  color: gold;
+}
+
+.upload-preview {
+  margin-top: 15px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+</style>
 </head>
 <body>
 
-  <!-- Header -->
-  <div class="header">🐛 Pest & Disease Detection</div>
+<div class="header">🐛 Pest & Disease Detection</div>
 
-  <div class="container">
-    <!-- Upload Section -->
-    <label class="upload-box" for="imageInput">
-      📷 Click to Upload or Take Photo
-    </label>
+<div class="container">
+  <!-- Upload Section -->
+  <div id="uploadSection">
+    <label class="upload-box" for="imageInput">📷 Click to Upload or Take Photo</label>
     <input type="file" id="imageInput" accept="image/*" capture="camera">
-
-    <!-- Result Section -->
-    <div id="result" class="result"></div>
-
-    <!-- Feedback Section -->
-    <div id="feedback" class="feedback">
-      <h3>⭐ Was this advice useful?</h3>
-      <div class="stars">
-        <span onclick="rate(1)">★</span>
-        <span onclick="rate(2)">★</span>
-        <span onclick="rate(3)">★</span>
-        <span onclick="rate(4)">★</span>
-        <span onclick="rate(5)">★</span>
-      </div>
-      <p id="feedbackText"></p>
-    </div>
+    <input type="text" id="descriptionInput" class="description-input" placeholder="Enter description of the issue...">
   </div>
 
-  <script>
-    const resultBox = document.getElementById("result");
-    const feedbackBox = document.getElementById("feedback");
+  <!-- Result Section -->
+  <div id="result" class="result"></div>
 
-    document.getElementById("imageInput").addEventListener("change", () => {
-      // Simulating AI disease detection
-      const diseases = [
-        {
-          name: "Leaf Blight",
-          severity: "Severe",
-          solution: "Use Neem Oil Spray or Mancozeb",
-          loss: "30% yield loss if untreated"
-        },
-        {
-          name: "Aphid Infestation",
-          severity: "Mild",
-          solution: "Introduce ladybugs or use mild pesticide",
-          loss: "10% yield loss if untreated"
-        }
-      ];
+  <!-- Feedback Section -->
+  <div id="feedback" class="feedback">
+    <h3>⭐ Was this advice useful?</h3>
+    <div class="stars">
+      <span onclick="rate(1)">★</span>
+      <span onclick="rate(2)">★</span>
+      <span onclick="rate(3)">★</span>
+      <span onclick="rate(4)">★</span>
+      <span onclick="rate(5)">★</span>
+    </div>
+    <p id="feedbackText"></p>
+  </div>
+</div>
 
-      // Random result simulation
-      const rand = Math.random();
+<script>
+const uploadSection = document.getElementById("uploadSection");
+const resultBox = document.getElementById("result");
+const feedbackBox = document.getElementById("feedback");
+const imageInput = document.getElementById("imageInput");
+const descriptionInput = document.getElementById("descriptionInput");
+
+const demoDisease = {
+  name: "Leaf Blight",
+  severity: "Severe",
+  solution: "Use Neem Oil Spray or Mancozeb",
+  loss: "30% yield loss if untreated"
+};
+
+imageInput.addEventListener("change", () => {
+  const description = descriptionInput.value || "No description provided";
+
+  if(imageInput.files && imageInput.files[0]){
+    const reader = new FileReader();
+    reader.onload = function(e){
+      // Hide upload section
+      uploadSection.style.display = "none";
+
+      // Show result section
       resultBox.style.display = "block";
-      resultBox.innerHTML = "";
 
-      if (rand > 0.5) {
-        const d = diseases[Math.floor(Math.random() * diseases.length)];
+      // Randomly simulate disease detection
+      const rand = Math.random();
+      if(rand > 0.5){
         resultBox.className = "result disease";
         resultBox.innerHTML = `
-          <h3>🚨 Disease Detected: ${d.name}</h3>
-          <p><b>Severity:</b> ${d.severity}</p>
-          <p><b>Solution:</b> ${d.solution}</p>
-          <p><b>Estimated Loss:</b> ${d.loss}</p>
-          <button class="btn" onclick="sendAlert('${d.name}')">⚠️ Send Alert to Neighbors</button>
+          <h3>🚨 Disease Detected: ${demoDisease.name}</h3>
+          <img src="${e.target.result}" alt="Uploaded Image" class="upload-preview">
+          <p><b>Farmer Description:</b> ${description}</p>
+          <p><b>Severity:</b> ${demoDisease.severity}</p>
+          <p><b>Solution:</b> ${demoDisease.solution}</p>
+          <p><b>Estimated Loss:</b> ${demoDisease.loss}</p>
+          <button class="btn" onclick="sendAlert('${demoDisease.name}')">⚠️ Send Alert to Neighbors</button>
           <button class="btn" onclick="showFeedback()">Give Feedback</button>
         `;
       } else {
         resultBox.className = "result healthy";
-        resultBox.innerHTML = "✅ Crop looks healthy!";
+        resultBox.innerHTML = `
+          ✅ Crop looks healthy!
+          <img src="${e.target.result}" alt="Uploaded Image" class="upload-preview">
+          <p><b>Farmer Description:</b> ${description}</p>
+        `;
         showFeedback();
       }
-    });
-
-    function sendAlert(diseaseName) {
-      alert(`📢 Alert sent to neighboring farmers about ${diseaseName}!`);
     }
+    reader.readAsDataURL(imageInput.files[0]);
+  }
+});
 
-    function showFeedback() {
-      feedbackBox.style.display = "block";
-    }
+function sendAlert(diseaseName){
+  alert(`📢 Alert sent to neighboring farmers about ${diseaseName}!`);
+}
 
-    function rate(stars) {
-      const starElems = document.querySelectorAll(".stars span");
-      starElems.forEach((s, i) => {
-        s.classList.toggle("active", i < stars);
-      });
-      document.getElementById("feedbackText").innerText = `Thanks! You rated this ${stars} stars.`;
-    }
-  </script>
+function showFeedback(){
+  feedbackBox.style.display = "block";
+}
+
+function rate(stars){
+  const starElems = document.querySelectorAll(".stars span");
+  starElems.forEach((s,i)=>{
+    s.classList.toggle("active", i < stars);
+  });
+  document.getElementById("feedbackText").innerText = `Thanks! You rated this ${stars} stars.`;
+}
+</script>
 </body>
 </html>

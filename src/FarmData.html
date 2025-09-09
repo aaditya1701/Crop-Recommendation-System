@@ -91,6 +91,18 @@
             color: #777;
             font-style: italic;
         }
+.checkbox-table {
+    align-items: center;
+  border-collapse: collapse;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+.checkbox-table td {
+  padding: 5px 10px;
+  vertical-align: middle;
+}
     </style>
 </head>
 
@@ -121,16 +133,16 @@
             <option>Chalky</option>
         </select>
 
-        <label for="ph">Soil pH</label>
+        <label for="ph">Soil pH <span class="optional">(optional)</span></label>
         <input type="number" step="0.1" id="ph" placeholder="e.g., 6.5">
 
-        <label for="moisture">Soil Moisture %</label>
+        <label for="moisture">Soil Moisture % <span class="optional">(optional)</span></label>
         <input type="number" id="moisture" placeholder="e.g., 20">
 
-        <label for="npk">NPK Values (N-P-K)</label>
+        <label for="npk">NPK Values (N-P-K)<span class="optional">(optional)</span></label>
         <input type="text" id="npk" placeholder="e.g., 40-20-20">
 
-        <label for="soilPhoto">Upload Soil Photo <span class="optional">(optional)</span></label>
+        <label for="soilPhoto">Upload Soil Photo </label>
         <input type="file" id="soilPhoto" accept="image/*">
 
         <!-- Previous Crop Details -->
@@ -149,12 +161,24 @@
         <textarea id="pesticides" rows="2" placeholder="Enter pesticides used"></textarea>
 
         <label>Problems Faced</label>
-        <div class="checkbox-group">
-            <label><input type="checkbox" value="Pest infestation"> Pest infestation</label>
-            <label><input type="checkbox" value="Low yield"> Low yield</label>
-            <label><input type="checkbox" value="Grain storage issue"> Grain storage issue</label>
-            <label><input type="checkbox" value="Irrigation issue"> Irrigation issue</label>
-        </div>
+<table class="checkbox-table">
+  <tr>
+    <td><label for="pest">Pest infestation</label></td>
+    <td><input type="checkbox" id="pest" value="Pest infestation"></td>
+  </tr>
+  <tr>
+    <td><label for="low-yield">Low yield</label></td>
+    <td><input type="checkbox" id="low-yield" value="Low yield"></td>
+  </tr>
+  <tr>
+    <td><label for="grain-storage">Grain storage issue</label></td>
+    <td><input type="checkbox" id="grain-storage" value="Grain storage issue"></td>
+  </tr>
+  <tr>
+    <td><label for="irrigation">Irrigation issue</label></td>
+    <td><input type="checkbox" id="irrigation" value="Irrigation issue"></td>
+  </tr>
+</table>
 
         <!-- Save & Continue -->
         <button type="button" onclick="saveFarmData()">Save & Continue ➡️</button>
