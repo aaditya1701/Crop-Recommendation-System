@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriJeevan - Crop Rotation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9fbe7;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    .header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .container {
+      margin: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+    .section h3 {
+      color: #2e7d32;
+      margin-bottom: 10px;
+    }
+    .section p {
+      font-size: 0.95rem;
+      margin: 5px 0;
+      color: #444;
+    }
+
+    /* Crop Cards */
+    .crop-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    @media(min-width: 600px) {
+      .crop-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .crop-card {
+      background: #f1f8e9;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    .crop-card:hover {
+      transform: scale(1.05);
+      background: #e8f5e9;
+    }
+    .crop-card img {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 10px;
+    }
+    .crop-card h4 {
+      margin: 5px 0;
+      color: #2e7d32;
+    }
+    .crop-card p {
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      margin: 15px 10px 0 0;
+      padding: 12px 20px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #1b5e20;
+    }
+    .btn.skip {
+      background: #888;
+    }
+    .btn.skip:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">🔄 Crop Rotation</div>
+
+  <div class="container">
+    <!-- Last Crop -->
+    <div class="section">
+      <h3>📋 Last Crop Grown</h3>
+      <p id="lastCrop"><b>Wheat 🌾</b></p>
+    </div>
+
+    <!-- Suggested Crops -->
+    <div class="section">
+      <h3>🌱 Suggested Next Crops</h3>
+      <div class="crop-list" id="suggestions">
+        <!-- Crop cards will load here -->
+      </div>
+    </div>
+
+    <!-- Benefits -->
+    <div class="section">
+      <h3>💡 Why Crop Rotation?</h3>
+      <p>✔️ Improves soil fertility and nitrogen levels.</p>
+      <p>✔️ Breaks pest and disease cycles.</p>
+      <p>✔️ Enhances long-term crop yield and sustainability.</p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="section">
+      <button class="btn" onclick="acceptRotation()">✅ Accept Suggestion</button>
+      <button class="btn skip" onclick="skipRotation()">➡️ Skip (Continue Same Crop)</button>
+    </div>
+  </div>
+
+  <script>
+    // Example rotation rules
+    const rotationPlans = {
+      Wheat: [
+        { name: "Chickpeas", img: "https://img.icons8.com/color/96/pea.png", reason: "Adds nitrogen to soil, breaks wheat pest cycle." },
+        { name: "Mustard", img: "https://img.icons8.com/color/96/plant-under-sun.png", reason: "Improves soil aeration, prevents fungal build-up." },
+        { name: "Barley", img: "https://img.icons8.com/color/96/grain.png", reason: "Shorter season crop, maintains soil fertility." }
+      ],
+      Rice: [
+        { name: "Mustard", img: "https://img.icons8.com/color/96/plant-under-sun.png", reason: "Improves soil aeration, breaks fungal disease cycle." },
+        { name: "Pulses", img: "https://img.icons8.com/color/96/beans.png", reason: "Enhances nitrogen content in soil." }
+      ],
+      Tomato: [
+        { name: "Onion", img: "https://img.icons8.com/color/96/onion.png", reason: "Reduces soil-borne diseases, balances nutrients." },
+        { name: "Spinach", img: "https://img.icons8.com/color/96/spinach.png", reason: "Leafy crop helps restore soil balance." }
+      ]
+    };
+
+    // Get last crop from query string or default
+    const params = new URLSearchParams(window.location.search);
+    const lastCrop = params.get("crop") || "Wheat";
+    document.getElementById("lastCrop").innerHTML = `<b>${lastCrop}</b>`;
+
+    // Load suggestions dynamically
+    const suggestionsDiv = document.getElementById("suggestions");
+    if (rotationPlans[lastCrop]) {
+      rotationPlans[lastCrop].forEach(crop => {
+        const card = document.createElement("div");
+        card.className = "crop-card";
+        card.innerHTML = `
+          <img src="${crop.img}" alt="${crop.name}">
+          <h4>${crop.name}</h4>
+          <p>${crop.reason}</p>
+        `;
+        suggestionsDiv.appendChild(card);
+      });
+    } else {
+      suggestionsDiv.innerHTML = "<p>No rotation data available for this crop.</p>";
+    }
+
+    function acceptRotation() {
+      alert("✅ Rotation plan accepted! Preparing for next season...");
+      window.location.href = "dashboard.html";
+    }
+
+    function skipRotation() {
+      alert("➡️ Continuing with same crop next season.");
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>

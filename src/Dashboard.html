@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,14 +25,17 @@
       color: white;
       padding: 12px 20px;
     }
+
     .topbar h2 {
       margin: 0;
       font-size: 1.2rem;
     }
+
     .icons {
       display: flex;
       gap: 15px;
     }
+
     .icons img {
       width: 26px;
       height: 26px;
@@ -46,24 +50,28 @@
       max-width: 400px;
       background: white;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     .weather-box img {
       width: 40px;
       height: 40px;
     }
+
     .weather-info {
       flex: 1;
       margin-left: 15px;
     }
+
     .weather-info h3 {
       margin: 0;
       font-size: 1.1rem;
       color: #2e7d32;
     }
+
     .weather-info p {
       margin: 3px 0;
       font-size: 0.9rem;
@@ -78,23 +86,27 @@
       padding: 20px;
       flex: 1;
     }
+
     .tile {
       background: white;
       padding: 20px;
       border-radius: 12px;
-      box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+      box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
       text-align: center;
       cursor: pointer;
       transition: transform 0.2s, background 0.2s;
     }
+
     .tile:hover {
       transform: scale(1.05);
       background: #f1f8e9;
     }
+
     .tile img {
       width: 50px;
       height: 50px;
     }
+
     .tile p {
       margin-top: 8px;
       font-weight: bold;
@@ -111,6 +123,7 @@
       position: sticky;
       bottom: 0;
     }
+
     .bottom-nav img {
       width: 28px;
       height: 28px;
@@ -119,6 +132,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Top Bar -->
@@ -126,7 +140,7 @@
     <h2>AgriJeevan</h2>
     <div class="icons">
       <img src="https://img.icons8.com/ios-filled/50/ffffff/appointment-reminders.png" alt="Notifications">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/user-male-circle.png" alt="Profile">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/user-male-circle.png" alt="Profile" onclick="openFeature('Profile')">
     </div>
   </div>
 
@@ -146,6 +160,10 @@
       <img src="https://img.icons8.com/color/96/wheat.png" alt="Crop">
       <p>Crop Recommendation</p>
     </div>
+    <div class="tile" onclick="window.location.href='current-crop.html'">
+    <img src="https://img.icons8.com/fluency/96/seed.png" alt="Current Crop">
+    <p>🌱 Current Crop</p>
+  </div>
     <div class="tile" onclick="openFeature('Pest Detection')">
       <img src="https://img.icons8.com/color/96/bug.png" alt="Pest">
       <p>Pest & Disease Detection</p>
@@ -174,22 +192,37 @@
 
   <!-- Bottom Navigation -->
   <div class="bottom-nav">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Home" onclick="openFeature('Home')">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Home" >
     <img src="https://img.icons8.com/ios-filled/50/ffffff/chat.png" alt="Chatbot" onclick="openFeature('Chatbot')">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/groups.png" alt="Community" onclick="openFeature('Community')">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/groups.png" alt="Community"
+      onclick="openFeature('Community')">
     <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="Profile" onclick="openFeature('Profile')">
   </div>
 
   <script>
     function openFeature(name) {
-     if(name==="Crop Recommendation"){
-        window.location.href="CropRecommendationPage.html";
-     }else if(name==="Pest Detection"){
-        window.location.href="PestAndDiseaseDetectionPage.html";
-     }else{
-         alert("👉 Opening " + name + " (feature coming soon).");
-     }
+      if (name === "Crop Recommendation") {
+        window.location.href = "CropRecommendationPage.html";
+      } else if (name === "Pest Detection") {
+        window.location.href = "PestAndDiseaseDetectionPage.html";
+      } else if (name === "Chatbot") {
+        window.location.href = "Chatbot.html"
+      }
+      else if (name === "Community") {
+        window.location.href = "Community.html";
+      } else if (name === "Weather Alerts") {
+        window.location.href = "WeatherAndAlerts.html";
+      }
+      else if (name === "Feedback") {
+        window.location.href = "Feedback.html";
+      }
+      else if (name === "Profile") {
+        window.location.href = "Profile.html";
+      } else {
+        alert("👉 Opening " + name + " (feature coming soon).");
+      }
     }
   </script>
 </body>
+
 </html>

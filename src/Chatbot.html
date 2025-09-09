@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriJeevan - AI Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f8e9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    /* Chat Panel */
+    .chat-container {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background: #fff;
+    }
+
+    .msg {
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 70%;
+    }
+    .user {
+      background: #c8e6c9;
+      margin-left: auto;
+      text-align: right;
+    }
+    .bot {
+      background: #f1f8e9;
+      margin-right: auto;
+      border: 1px solid #ccc;
+    }
+
+    /* Input Panel */
+    .input-container {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background: #e8f5e9;
+      border-top: 1px solid #ccc;
+    }
+    .input-container select {
+      margin-right: 10px;
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .input-container input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .input-container button {
+      margin-left: 10px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #2e7d32;
+      color: white;
+      font-size: 1rem;
+    }
+    .input-container button:hover {
+      background: #1b5e20;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">🤖 AI Chatbot</div>
+
+  <!-- Chat History -->
+  <div class="chat-container" id="chat">
+    <div class="msg user">Best fertilizer for paddy in loamy soil?</div>
+    <div class="msg bot">For paddy in loamy soil, use Urea + DAP + Organic compost for best results.</div>
+
+    <div class="msg user">कपास में लाल पत्तियों का इलाज?</div>
+    <div class="msg bot">🙏 किसान भाई, कपास में लाल पत्तियों के लिए सल्फेट ऑफ पोटाश (K₂SO₄) का प्रयोग करें और खेत में पानी की निकासी सुनिश्चित करें।</div>
+
+    <div class="msg user">What crops are farmers in my district growing?</div>
+    <div class="msg bot">In your district, most farmers are growing Wheat 🌾 and Mustard 🌼 this season.</div>
+  </div>
+
+  <!-- Input Panel -->
+  <div class="input-container">
+    <select id="lang">
+      <option>English</option>
+      <option>हिंदी</option>
+      <option>मराठी</option>
+      <option>ਪੰਜਾਬੀ</option>
+    </select>
+    <input type="text" id="userInput" placeholder="Type your query...">
+    <button onclick="sendMessage()">Send</button>
+    <button onclick="speakLast()">🔊</button>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chat");
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      // Add user message
+      const userMsg = document.createElement("div");
+      userMsg.className = "msg user";
+      userMsg.innerText = text;
+      chatBox.appendChild(userMsg);
+
+      // Fake bot reply
+      setTimeout(() => {
+        const botMsg = document.createElement("div");
+        botMsg.className = "msg bot";
+        let reply = "🙏 Thank you for your query. We are preparing advice for you.";
+
+        if (text.includes("fertilizer")) {
+          reply = "For better yield, use a mix of Organic Manure + NPK fertilizer.";
+        } else if (text.includes("कपास") || text.includes("cotton")) {
+          reply = "कपास में लाल पत्तियों के लिए सल्फेट ऑफ पोटाश का प्रयोग करें और उचित सिंचाई रखें।";
+        } else if (text.includes("crop") || text.includes("district")) {
+          reply = "In your district, farmers are growing Wheat 🌾 and Chickpeas 🌱 this season.";
+        }
+
+        botMsg.innerText = reply;
+        chatBox.appendChild(botMsg);
+        chatBox.scrollTop = chatBox.scrollHeight; // auto scroll
+      }, 800);
+
+      input.value = "";
+    }
+
+    // Text-to-Speech (last bot reply)
+    function speakLast() {
+      const msgs = document.querySelectorAll(".msg.bot");
+      if (msgs.length === 0) return;
+      const lastMsg = msgs[msgs.length - 1].innerText;
+      const speech = new SpeechSynthesisUtterance(lastMsg);
+      speech.lang = "hi-IN"; // default Hindi
+      window.speechSynthesis.speak(speech);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriJeevan - Profile & Settings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f8e9;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    .header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .container {
+      margin: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+    .section h3 {
+      color: #2e7d32;
+      margin-bottom: 8px;
+    }
+    .section p {
+      font-size: 0.95rem;
+      margin: 5px 0;
+      color: #444;
+    }
+
+    /* Profile */
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .profile-info img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 3px solid #2e7d32;
+    }
+
+    /* Settings */
+    .settings-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: #f9fbe7;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    select, input[type="checkbox"] {
+      padding: 5px;
+      font-size: 1rem;
+    }
+
+    /* Button */
+    .btn {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #1b5e20;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">👨‍🌾 Profile & Settings</div>
+
+  <div class="container">
+    <!-- Profile Info -->
+    <div class="section">
+      <h3>📋 Profile Information</h3>
+      <div class="profile-info">
+        <img src="https://img.icons8.com/color/96/user.png" alt="Farmer">
+        <div>
+          <p><b>Name:</b> Ramesh Kumar</p>
+          <p><b>Farms:</b> 2 (Loamy Soil)</p>
+          <p><b>Location:</b> Nashik, Maharashtra</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Reports -->
+    <div class="section">
+      <h3>📊 My Reports</h3>
+      <p>✅ Previous Crops: Wheat (2023), Rice (2022)</p>
+      <p>🐛 Pest Cases Solved: 3 (Leaf Blight, Aphids, Stem Borer)</p>
+    </div>
+
+    <!-- Settings -->
+    <div class="section">
+      <h3>⚙️ App Settings</h3>
+
+      <div class="settings-item">
+        <label>🌐 Language</label>
+        <select>
+          <option>English</option>
+          <option>हिंदी (Hindi)</option>
+          <option>मराठी (Marathi)</option>
+          <option>ਪੰਜਾਬੀ (Punjabi)</option>
+        </select>
+      </div>
+
+      <div class="settings-item">
+        <label>🦻 Accessibility Mode</label>
+        <select>
+          <option>Standard</option>
+          <option>Large Text</option>
+          <option>Voice Assist</option>
+        </select>
+      </div>
+
+      <div class="settings-item">
+        <label>📶 Offline/SMS Mode</label>
+        <input type="checkbox" id="offlineMode">
+      </div>
+    </div>
+
+    <!-- Save Button -->
+    <button class="btn" onclick="saveSettings()">💾 Save Settings</button>
+  </div>
+
+  <script>
+    function saveSettings() {
+      const offline = document.getElementById("offlineMode").checked ? "Enabled" : "Disabled";
+      alert("✅ Settings Saved!\nOffline/SMS Mode: " + offline);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriJeevan - Harvest Guidance</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f8e9;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    .header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .container {
+      margin: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+    .section h3 {
+      color: #2e7d32;
+      margin-bottom: 8px;
+    }
+    .section p {
+      font-size: 0.95rem;
+      margin: 5px 0;
+      color: #444;
+    }
+
+    /* Highlight Boxes */
+    .highlight {
+      background: #f9fbe7;
+      padding: 12px;
+      border-left: 5px solid #2e7d32;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: block;
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #1b5e20;
+    }
+    .btn.secondary {
+      background: #388e3c;
+    }
+    .btn.secondary:hover {
+      background: #2c6c2e;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">🌾 Harvest Guidance</div>
+
+  <div class="container">
+    <!-- Crop Info -->
+    <div class="section">
+      <h3>📋 Current Crop</h3>
+      <p><b>Crop:</b> Rice</p>
+      <p><b>Farm Size:</b> 2 Acres</p>
+      <p><b>Expected Yield:</b> 2500 kg</p>
+    </div>
+
+    <!-- Harvest Timing -->
+    <div class="section">
+      <h3>🗓 Ideal Harvest Time</h3>
+      <div class="highlight">
+        Recommended Harvest Window: <b>10th – 20th November</b>  
+      </div>
+      <p>Grains are turning golden yellow, moisture level reaching ~20% — ideal for harvesting.</p>
+    </div>
+
+    <!-- Early Harvest Alerts -->
+    <div class="section">
+      <h3>⚠️ Early Harvest Alerts</h3>
+      <div class="highlight">
+        Heavy Rainfall predicted next week 🌧 — consider harvesting earlier.  
+      </div>
+      <div class="highlight">
+        Pest Migration risk: Locust activity detected in nearby fields 🐛.  
+      </div>
+    </div>
+
+    <!-- Storage & Post-Harvest -->
+    <div class="section">
+      <h3>📦 Post-Harvest & Storage Tips</h3>
+      <p>- Dry grains in sunlight for 2–3 days before storage.</p>
+      <p>- Maintain <b>14% moisture</b> level for safe storage.</p>
+      <p>- Store in jute bags with neem leaves to prevent insects.</p>
+      <p>- Avoid plastic bags — risk of fungus growth.</p>
+    </div>
+
+    <!-- Buttons -->
+    <button class="btn" onclick="markHarvested()">✅ Mark as Harvested</button>
+    <button class="btn secondary" onclick="viewRotation()">➡️ Plan Crop Rotation</button>
+  </div>
+
+  <script>
+    // Load crop dynamically
+    const params = new URLSearchParams(window.location.search);
+    const cropName = params.get("crop") || "Rice";
+    document.querySelector(".section p b").innerText = cropName;
+
+    function markHarvested() {
+      alert("✅ Harvest marked as completed for " + cropName + "!");
+      // Redirect to dashboard
+      window.location.href = "dashboard.html";
+    }
+
+    function viewRotation() {
+      window.location.href = "CropRotation.html?crop=" + cropName;
+    }
+  </script>
+</body>
+</html>

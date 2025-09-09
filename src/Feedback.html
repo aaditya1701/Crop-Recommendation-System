@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriJeevan - Feedback</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f8e9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .container {
+      margin: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+      flex: 1;
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+    .section h3 {
+      color: #2e7d32;
+      margin-bottom: 10px;
+    }
+
+    /* Star Rating */
+    .stars {
+      display: flex;
+      gap: 8px;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    .stars span {
+      color: #ccc;
+    }
+    .stars span.active {
+      color: gold;
+    }
+
+    /* Textarea */
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-top: 8px;
+      font-size: 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: block;
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #1b5e20;
+    }
+
+    .yesno {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .yesno button {
+      flex: 1;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      color: white;
+    }
+    .yes {
+      background: #2e7d32;
+    }
+    .no {
+      background: #d84315;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">⭐ Feedback</div>
+
+  <div class="container">
+    <!-- Star Rating -->
+    <div class="section">
+      <h3>How was your experience?</h3>
+      <div class="stars" id="stars">
+        <span onclick="rate(1)">★</span>
+        <span onclick="rate(2)">★</span>
+        <span onclick="rate(3)">★</span>
+        <span onclick="rate(4)">★</span>
+        <span onclick="rate(5)">★</span>
+      </div>
+      <p id="ratingText"></p>
+    </div>
+
+    <!-- Yes/No -->
+    <div class="section">
+      <h3>Did this recommendation help you?</h3>
+      <div class="yesno">
+        <button class="yes" onclick="yesFeedback()">✅ Yes</button>
+        <button class="no" onclick="noFeedback()">❌ No</button>
+      </div>
+    </div>
+
+    <!-- Text Feedback -->
+    <div class="section">
+      <h3>Additional Feedback (Optional)</h3>
+      <textarea id="feedbackText" rows="3" placeholder="Write your feedback here..."></textarea>
+    </div>
+
+    <!-- Voice Feedback -->
+    <div class="section">
+      <h3>🎙 Voice Feedback (Optional)</h3>
+      <button class="btn" onclick="recordVoice()">🎤 Record & Send</button>
+      <p id="voiceStatus"></p>
+    </div>
+
+    <!-- Submit -->
+    <button class="btn" onclick="submitFeedback()">Submit Feedback</button>
+  </div>
+
+  <script>
+    let currentRating = 0;
+    let mediaRecorder;
+    let audioChunks = [];
+
+    function rate(stars) {
+      currentRating = stars;
+      document.querySelectorAll("#stars span").forEach((s, i) => {
+        s.classList.toggle("active", i < stars);
+      });
+      document.getElementById("ratingText").innerText = `You rated: ${stars} star(s)`;
+    }
+
+    function yesFeedback() {
+      alert("✅ Thank you! Glad it was helpful.");
+    }
+
+    function noFeedback() {
+      alert("❌ Sorry! We’ll work on improving.");
+    }
+
+    function recordVoice() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        document.getElementById("voiceStatus").innerText = "🎤 Voice recording not supported.";
+        return;
+      }
+
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.start();
+        audioChunks = [];
+
+        mediaRecorder.ondataavailable = event => {
+          audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+          document.getElementById("voiceStatus").innerText = "🎤 Voice feedback recorded!";
+          // Upload audioBlob to server (future integration)
+        };
+
+        setTimeout(() => {
+          mediaRecorder.stop();
+        }, 4000); // 4s demo recording
+        document.getElementById("voiceStatus").innerText = "🎙 Recording (4s)...";
+      });
+    }
+
+    function submitFeedback() {
+      const textFeedback = document.getElementById("feedbackText").value;
+      alert(`⭐ Feedback Submitted!\nRating: ${currentRating}\nText: ${textFeedback}`);
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>

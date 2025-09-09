@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriJeevan - Weather & Alerts</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f8e9;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    .header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .container {
+      margin: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+    .section h3 {
+      color: #2e7d32;
+      margin-bottom: 8px;
+    }
+    .section p {
+      font-size: 0.95rem;
+      margin: 5px 0;
+      color: #444;
+    }
+
+    /* Today’s Weather */
+    .today-weather {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: #f9fbe7;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .today-weather img {
+      width: 60px;
+      height: 60px;
+    }
+
+    /* Weekly Forecast */
+    .forecast {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .forecast-day {
+      background: #f9fbe7;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .forecast-day img {
+      width: 40px;
+      height: 40px;
+    }
+
+    /* Alerts */
+    .alert-box {
+      background: #fff3e0;
+      border-left: 5px solid #d84315;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">🌦 Weather & Alerts</div>
+
+  <div class="container">
+    <!-- Today’s Weather -->
+    <div class="section">
+      <h3>☀️ Today’s Weather</h3>
+      <div class="today-weather">
+        <img src="https://img.icons8.com/color/96/partly-cloudy-day.png" alt="Weather">
+        <div>
+          <p><b>Temperature:</b> 28°C</p>
+          <p><b>Humidity:</b> 65%</p>
+          <p><b>Rainfall:</b> 5mm</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weekly Forecast -->
+    <div class="section">
+      <h3>📅 Weekly Forecast</h3>
+      <div class="forecast">
+        <div class="forecast-day">
+          <p><b>Mon</b></p>
+          <img src="https://img.icons8.com/color/96/cloud.png" alt="Cloud">
+          <p>26°C | 10mm</p>
+        </div>
+        <div class="forecast-day">
+          <p><b>Tue</b></p>
+          <img src="https://img.icons8.com/color/96/rain.png" alt="Rain">
+          <p>25°C | 30mm</p>
+        </div>
+        <div class="forecast-day">
+          <p><b>Wed</b></p>
+          <img src="https://img.icons8.com/color/96/storm.png" alt="Storm">
+          <p>24°C | 50mm</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alerts -->
+    <div class="section">
+      <h3>🚨 Alerts</h3>
+      <div class="alert-box">
+        🐛 <b>Pest Risk:</b> Aphid infestation likely due to high humidity.
+      </div>
+      <div class="alert-box">
+        🌊 <b>Extreme Weather:</b> Flood warning in low-lying areas.
+      </div>
+      <div class="alert-box">
+        🌾 <b>Harvest Alert:</b> Safe harvest window approaching (10–15 Sept).
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriJeevan - Community & Reports</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f8e9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .container {
+      margin: 15px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 25px;
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+    }
+    .section h3 {
+      color: #2e7d32;
+      margin-bottom: 10px;
+    }
+
+    /* Post Creation */
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+    .actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 8px 15px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #1b5e20;
+    }
+
+    /* Posts */
+    .post {
+      background: #f9fbe7;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+    .tags {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: #555;
+    }
+    .like-btn {
+      margin-top: 6px;
+      background: #388e3c;
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Comments */
+    .comments {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 3px solid #ccc;
+    }
+    .comment {
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
+    /* Reports */
+    .report-box {
+      background: #f9fbe7;
+      padding: 12px;
+      border-left: 5px solid #2e7d32;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">👨‍🌾 Community & Reports</div>
+
+  <div class="container">
+    <!-- Community Forum -->
+    <div class="section">
+      <h3>💬 Community Forum</h3>
+
+      <!-- Post Creation -->
+      <textarea id="postText" rows="3" placeholder="Describe your problem or solution..."></textarea>
+      <div class="actions">
+        <input type="file" id="imageUpload" accept="image/*">
+        <button class="btn" onclick="postMessage()">Post</button>
+        <button class="btn" onclick="voiceToText()">🎙️ Voice to Text</button>
+        <select id="language">
+          <option>English</option>
+          <option>हिंदी</option>
+          <option>मराठी</option>
+          <option>ਪੰਜਾਬੀ</option>
+        </select>
+      </div>
+
+      <!-- Example Posts -->
+      <div class="post">
+        <p><b>Problem:</b> Wheat leaves turning yellow. Possible nutrient deficiency.</p>
+        <p><b>Solution:</b> Urea spray worked in 5 days.</p>
+        <div class="tags">#wheat #fertilizer</div>
+        <button class="like-btn" onclick="likePost(this)">👍 Like</button> <span>5 Likes</span>
+        <div class="comments">
+          <div class="comment">👩‍🌾 Anita: I had the same issue, thanks!</div>
+          <div class="comment">👨‍🌾 Ramesh: Works best if applied early.</div>
+        </div>
+      </div>
+
+      <div class="post">
+        <p><b>Problem:</b> Tomato crop affected by leaf curl virus.</p>
+        <p><b>Solution:</b> Used neem oil spray + removed infected leaves.</p>
+        <div class="tags">#tomato #pest</div>
+        <button class="like-btn" onclick="likePost(this)">👍 Like</button> <span>12 Likes</span>
+        <div class="comments">
+          <div class="comment">👨‍🌾 Suresh: Neem oil worked for me too!</div>
+        </div>
+      </div>
+
+      <div class="post">
+        <p><b>Problem:</b> Paddy fields have waterlogging after heavy rain.</p>
+        <p><b>Solution:</b> Created small drainage channels — water cleared in 2 days.</p>
+        <div class="tags">#rice #irrigation</div>
+        <button class="like-btn" onclick="likePost(this)">👍 Like</button> <span>9 Likes</span>
+        <div class="comments">
+          <div class="comment">👩‍🌾 Anita: Smart idea, I’ll try it next time.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Farmer Reports -->
+    <div class="section">
+      <h3>📊 Farmer Reports</h3>
+      <div class="report-box">
+        🌾 <b>Regional Crop Trends:</b> 55% farmers growing rice, 30% wheat, 15% vegetables.
+      </div>
+      <div class="report-box">
+        🐛 <b>Pest Outbreak:</b> Aphid infestation reported in 5 nearby villages.
+      </div>
+      <div class="report-box">
+        🌦 <b>Weather Report:</b> Avg. rainfall: 120mm this month, temp range: 25–32°C.
+      </div>
+      <div class="report-box">
+        📈 <b>Yield Comparison:</b> Your wheat yield: 2200 kg/ha vs regional avg: 2500 kg/ha.
+      </div>
+      <div class="report-box">
+        🔔 <b>Alert:</b> 40% farmers reported wheat rust this week — take preventive action.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function postMessage() {
+      let text = document.getElementById("postText").value;
+      if (text.trim() === "") return alert("Please write something.");
+      alert("✅ Post submitted: " + text);
+      document.getElementById("postText").value = "";
+    }
+
+    function voiceToText() {
+      alert("🎙️ Voice-to-text feature (to be integrated with Web Speech API).");
+    }
+
+    function likePost(btn) {
+      let span = btn.nextElementSibling;
+      let likes = parseInt(span.innerText) || 0;
+      span.innerText = (likes + 1) + " Likes";
+    }
+  </script>
+</body>
+</html>
